@@ -2,17 +2,72 @@
 
 document.addEventListener('DOMContentLoaded', function () {
     // Smooth scrolling for navigation links
-    const navLinks = document.querySelectorAll('.nav-links a');
+    const navLinks = document.querySelectorAll('.nav-links a, .footer-list a');
     navLinks.forEach(link => {
         link.addEventListener('click', function (e) {
-            // Only prevent default for internal links (if they were internal)
-            // Since all links are external, we'll just add a small animation
-            this.style.transform = 'scale(0.95)';
-            setTimeout(() => {
-                this.style.transform = 'scale(1)';
-            }, 150);
+            e.preventDefault();
+
+            const targetId = this.getAttribute('href');
+            const targetSection = document.querySelector(targetId);
+
+            if (targetSection) {
+                const headerHeight = document.querySelector('.header').offsetHeight;
+                const targetPosition = targetSection.offsetTop - headerHeight - 20;
+
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+
+                // Add active state animation
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1)';
+                }, 150);
+
+                // Update active navigation state
+                updateActiveNavLink(targetId);
+            }
         });
     });
+
+    // Function to update active navigation link
+    function updateActiveNavLink(targetId) {
+        // Remove active class from all nav links
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.classList.remove('active');
+        });
+
+        // Add active class to current link
+        const activeLink = document.querySelector(`.nav-links a[href="${targetId}"]`);
+        if (activeLink) {
+            activeLink.classList.add('active');
+        }
+    }
+
+    // Update active navigation on scroll
+    function updateNavOnScroll() {
+        const sections = document.querySelectorAll('section[id], footer[id]');
+        const headerHeight = document.querySelector('.header').offsetHeight;
+        const scrollPosition = window.scrollY + headerHeight + 100;
+
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.offsetHeight;
+            const sectionId = section.getAttribute('id');
+
+            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                updateActiveNavLink(`#${sectionId}`);
+            }
+        });
+    }
+
+    // Throttled scroll event for navigation updates
+    const throttledNavUpdate = throttle(updateNavOnScroll, 100);
+    window.addEventListener('scroll', throttledNavUpdate);
+
+    // Set initial active state
+    updateActiveNavLink('#home');
 
     // Button hover effects
     const buttons = document.querySelectorAll('.btn-primary, .btn-secondary');

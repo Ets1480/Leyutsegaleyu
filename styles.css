@@ -101,6 +101,23 @@ body {
     color: #3B82F6;
 }
 
+.nav-links a.active {
+    color: #3B82F6;
+    font-weight: 600;
+    position: relative;
+}
+
+.nav-links a.active::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(135deg, #3B82F6 0%, #8B5CF6 100%);
+    border-radius: 1px;
+}
+
 .header-cta {
     padding: 0.875rem 0;
     font-size: 0.875rem;
