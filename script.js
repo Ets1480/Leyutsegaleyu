@@ -1,5 +1,3 @@
-// DigiNova Website JavaScript
-
 document.addEventListener('DOMContentLoaded', function () {
     // Smooth scrolling for navigation links
     const navLinks = document.querySelectorAll('.nav-links a, .footer-list a');
@@ -128,7 +126,7 @@ document.addEventListener('DOMContentLoaded', function () {
         rootMargin: '0px 0px -50px 0px'
     };
 
-    const observer = new IntersectionObserver((entries) => {
+    const intersectionObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('fade-in-up');
@@ -140,7 +138,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const animateElements = document.querySelectorAll(
         '.service-card, .stat-card, .testimonial-card, .mission-card, .vision-card'
     );
-    animateElements.forEach(el => observer.observe(el));
+    animateElements.forEach(el => intersectionObserver.observe(el));
 
     // Pagination dots functionality (if needed for future carousel)
     const paginationDots = document.querySelectorAll('.pagination-dot');
@@ -181,14 +179,55 @@ document.addEventListener('DOMContentLoaded', function () {
         floatingBtn.style.transition = 'opacity 0.3s ease, visibility 0.3s ease';
     }
 
-    // Header scroll effect
+    // Dark mode functionality
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    const darkModeIcon = document.querySelector('.dark-mode-icon');
+
+    // Check for saved theme preference or default to light mode
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    updateDarkModeIcon(savedTheme);
+
+    function updateDarkModeIcon(theme) {
+        if (theme === 'dark') {
+            darkModeIcon.textContent = '☀️';
+        } else {
+            darkModeIcon.textContent = '🌙';
+        }
+    }
+
+    function toggleDarkMode() {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        updateDarkModeIcon(newTheme);
+
+        // Add a subtle animation to the toggle button
+        darkModeToggle.style.transform = 'scale(0.9)';
+        setTimeout(() => {
+            darkModeToggle.style.transform = 'scale(1)';
+        }, 150);
+    }
+
+    darkModeToggle.addEventListener('click', toggleDarkMode);
+
+    // Header scroll effect with theme awareness
     const header = document.querySelector('.header');
     window.addEventListener('scroll', function () {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const isDark = currentTheme === 'dark';
+
         if (window.scrollY > 50) {
-            header.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
+            if (isDark) {
+                header.style.backgroundColor = 'rgba(15, 23, 42, 0.95)';
+            } else {
+                header.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
+            }
             header.style.backdropFilter = 'blur(10px)';
         } else {
-            header.style.backgroundColor = 'transparent';
+            header.style.backgroundColor = 'var(--header-bg)';
             header.style.backdropFilter = 'blur(5px)';
         }
     });
@@ -451,6 +490,27 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }, 5000);
 
+    // Update chatbot theme when dark mode changes
+    function updateChatbotTheme() {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        // The chatbot will automatically inherit the theme through CSS variables
+        // No additional JavaScript needed as we're using CSS custom properties
+    }
+
+    // Listen for theme changes
+    const themeObserver = new MutationObserver(function (mutations) {
+        mutations.forEach(function (mutation) {
+            if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
+                updateChatbotTheme();
+            }
+        });
+    });
+
+    themeObserver.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['data-theme']
+    });
+
     // Console log for debugging
     console.log('DigiNova website loaded successfully');
 });
@@ -479,7 +539,7 @@ function throttle(func, limit) {
             inThrottle = true;
             setTimeout(() => inThrottle = false, limit);
         }
-    }
+    };
 }
 
 // Add smooth scrolling behavior to the entire page
