@@ -220,6 +220,182 @@ document.addEventListener('DOMContentLoaded', function () {
     const statCards = document.querySelectorAll('.stat-card');
     statCards.forEach(card => statObserver.observe(card));
 
+    // Chatbot functionality
+    const chatbotToggle = document.getElementById('chatbotToggle');
+    const chatbotContainer = document.getElementById('chatbotContainer');
+    const chatbotClose = document.getElementById('chatbotClose');
+    const chatbotInput = document.getElementById('chatbotInput');
+    const chatbotSend = document.getElementById('chatbotSend');
+    const chatbotMessages = document.getElementById('chatbotMessages');
+    const chatbotNotification = document.getElementById('chatbotNotification');
+
+    let isTyping = false;
+
+    // Predefined responses for the AI chatbot
+    const chatbotResponses = {
+        greetings: [
+            "Hello! How can I help you today?",
+            "Hi there! What can I do for you?",
+            "Welcome to DigiNova! How may I assist you?"
+        ],
+        services: [
+            "We offer software development, mobile applications, AI solutions, and process automation. Which service interests you most?",
+            "Our main services include custom software development, mobile app creation, AI/ML solutions, and business process automation. Would you like to know more about any of these?",
+            "DigiNova specializes in digital transformation through software development, mobile apps, AI solutions, and automation. What would you like to learn about?"
+        ],
+        contact: [
+            "You can reach us at info@diginova.com or call +234 123 456 7890. We're based in Lagos, Nigeria.",
+            "Feel free to contact us via email at info@diginova.com or phone at +234 123 456 7890. Our office is located in Lagos, Nigeria.",
+            "Get in touch with us at info@diginova.com or +234 123 456 7890. We're located in Lagos, Nigeria and ready to help!"
+        ],
+        about: [
+            "DigiNova is a leading digital solutions company in Africa, empowering businesses through innovative technology. We've completed 100+ projects for 50+ happy clients over 5+ years.",
+            "We're DigiNova - Smart Digital Solutions! Our mission is to empower businesses across Africa through cutting-edge technology and innovative digital strategies.",
+            "DigiNova specializes in digital transformation across Africa. We've successfully delivered 100+ projects and served 50+ clients with our innovative solutions."
+        ],
+        pricing: [
+            "Our pricing varies based on project scope and requirements. I'd recommend booking a free consultation to discuss your specific needs and get a customized quote.",
+            "Project costs depend on complexity and requirements. We offer free consultations to provide accurate estimates. Would you like to schedule one?",
+            "Pricing is tailored to each project's unique needs. Let's schedule a free consultation to discuss your requirements and provide a detailed quote."
+        ],
+        default: [
+            "That's an interesting question! For detailed information, I'd recommend speaking with our team. You can book a free consultation or contact us directly.",
+            "I'd be happy to help you with that! For the most accurate information, please reach out to our team at info@diginova.com or book a consultation.",
+            "Great question! Our team would be the best to provide detailed information about that. Feel free to contact us or schedule a free consultation."
+        ]
+    };
+
+    // Function to get chatbot response
+    function getChatbotResponse(message) {
+        const lowerMessage = message.toLowerCase();
+
+        if (lowerMessage.includes('hello') || lowerMessage.includes('hi') || lowerMessage.includes('hey')) {
+            return getRandomResponse('greetings');
+        } else if (lowerMessage.includes('service') || lowerMessage.includes('what do you do') || lowerMessage.includes('offer')) {
+            return getRandomResponse('services');
+        } else if (lowerMessage.includes('contact') || lowerMessage.includes('phone') || lowerMessage.includes('email') || lowerMessage.includes('reach')) {
+            return getRandomResponse('contact');
+        } else if (lowerMessage.includes('about') || lowerMessage.includes('company') || lowerMessage.includes('diginova')) {
+            return getRandomResponse('about');
+        } else if (lowerMessage.includes('price') || lowerMessage.includes('cost') || lowerMessage.includes('pricing') || lowerMessage.includes('quote')) {
+            return getRandomResponse('pricing');
+        } else {
+            return getRandomResponse('default');
+        }
+    }
+
+    function getRandomResponse(category) {
+        const responses = chatbotResponses[category];
+        return responses[Math.floor(Math.random() * responses.length)];
+    }
+
+    // Function to add message to chat
+    function addMessage(content, isUser = false) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `message ${isUser ? 'user-message' : 'bot-message'}`;
+
+        const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+        messageDiv.innerHTML = `
+            <div class="message-avatar">${isUser ? '👤' : '🤖'}</div>
+            <div class="message-content">
+                <p>${content}</p>
+                <span class="message-time">${currentTime}</span>
+            </div>
+        `;
+
+        chatbotMessages.appendChild(messageDiv);
+        chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+    }
+
+    // Function to show typing indicator
+    function showTypingIndicator() {
+        const typingDiv = document.createElement('div');
+        typingDiv.className = 'message bot-message typing-message';
+        typingDiv.innerHTML = `
+            <div class="message-avatar">🤖</div>
+            <div class="message-content typing-indicator">
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+            </div>
+        `;
+
+        chatbotMessages.appendChild(typingDiv);
+        chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+        return typingDiv;
+    }
+
+    // Function to send message
+    function sendMessage() {
+        const message = chatbotInput.value.trim();
+        if (!message || isTyping) return;
+
+        // Add user message
+        addMessage(message, true);
+        chatbotInput.value = '';
+
+        // Show typing indicator
+        isTyping = true;
+        const typingIndicator = showTypingIndicator();
+
+        // Simulate AI thinking time
+        setTimeout(() => {
+            // Remove typing indicator
+            typingIndicator.remove();
+
+            // Add bot response
+            const response = getChatbotResponse(message);
+            addMessage(response);
+
+            isTyping = false;
+        }, 1000 + Math.random() * 2000); // Random delay between 1-3 seconds
+    }
+
+    // Event listeners for chatbot
+    chatbotToggle.addEventListener('click', function () {
+        chatbotContainer.classList.toggle('active');
+        chatbotToggle.classList.toggle('active');
+
+        if (chatbotContainer.classList.contains('active')) {
+            chatbotInput.focus();
+            chatbotNotification.classList.add('hidden');
+        }
+    });
+
+    chatbotClose.addEventListener('click', function () {
+        chatbotContainer.classList.remove('active');
+        chatbotToggle.classList.remove('active');
+    });
+
+    chatbotSend.addEventListener('click', sendMessage);
+
+    chatbotInput.addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+            sendMessage();
+        }
+    });
+
+    // Prevent chatbot from closing when clicking inside
+    chatbotContainer.addEventListener('click', function (e) {
+        e.stopPropagation();
+    });
+
+    // Close chatbot when clicking outside
+    document.addEventListener('click', function (e) {
+        if (!chatbotContainer.contains(e.target) && !chatbotToggle.contains(e.target)) {
+            chatbotContainer.classList.remove('active');
+            chatbotToggle.classList.remove('active');
+        }
+    });
+
+    // Show notification after page load
+    setTimeout(() => {
+        if (!chatbotContainer.classList.contains('active')) {
+            chatbotNotification.classList.remove('hidden');
+        }
+    }, 5000);
+
     // Console log for debugging
     console.log('DigiNova website loaded successfully');
 });

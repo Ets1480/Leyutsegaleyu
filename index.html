@@ -319,6 +319,43 @@
 
         <!-- Floating Action Button -->
         <div class="floating-action-btn"></div>
+
+        <!-- Chatbot Widget -->
+        <div class="chatbot-container" id="chatbotContainer">
+            <div class="chatbot-header">
+                <div class="chatbot-avatar">
+                    <div class="avatar-icon">🤖</div>
+                </div>
+                <div class="chatbot-info">
+                    <h4 class="chatbot-name">DigiNova AI Assistant</h4>
+                    <p class="chatbot-status">Online</p>
+                </div>
+                <button class="chatbot-close" id="chatbotClose">×</button>
+            </div>
+            <div class="chatbot-messages" id="chatbotMessages">
+                <div class="message bot-message">
+                    <div class="message-avatar">🤖</div>
+                    <div class="message-content">
+                        <p>Hello! I'm DigiNova's AI assistant. How can I help you today?</p>
+                        <span class="message-time">Just now</span>
+                    </div>
+                </div>
+            </div>
+            <div class="chatbot-input-container">
+                <input type="text" class="chatbot-input" id="chatbotInput" placeholder="Type your message...">
+                <button class="chatbot-send" id="chatbotSend">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2 21L23 12L2 3V10L17 12L2 14V21Z" fill="currentColor" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Chatbot Toggle Button -->
+        <div class="chatbot-toggle" id="chatbotToggle">
+            <div class="chatbot-toggle-icon">💬</div>
+            <div class="chatbot-notification" id="chatbotNotification">1</div>
+        </div>
     </div>
 
     <script src="script.js"></script>
