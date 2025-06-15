@@ -21,6 +21,9 @@ The goal of this project is to reflect Diginova’s brand identity and attract p
 ---
 
 
+🌍 Live Project URL
+👉 Visit Website
+🔗 Public Live URL: https://bootcamp2-one.vercel.app/
 
 ---
 
@@ -61,7 +64,7 @@ Diginova Tech is a Dhaka-based digital agency that provides end-to-end services,
 The goal of this project is to reflect Diginova’s brand identity and attract potential clients by delivering a clean UI/UX, clear service descriptions, testimonials, and an engaging layout that boosts trust and conversion.
 
 ---
-
+https://www.figma.com/design/T8k0fYbK6Ur3Ih4awM80KE/Untitled?node-id=0-1&t=0drWEYQW9DY2qW04-1
  📸 Screenshots
 
 > *(Add screenshots here if available, for homepage, services section, and chatbot)*
@@ -84,7 +87,7 @@ The goal of this project is to reflect Diginova’s brand identity and attract p
 For collaboration, feedback, or inquiries:
 
 📧 Email: leyutsegaleyu@gmail.com 
-
+website: https://www.figma.com/design/T8k0fYbK6Ur3Ih4awM80KE/Untitled?node-id=0-1&t=0drWEYQW9DY2qW04-1
 
 
 
