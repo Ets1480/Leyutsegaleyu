@@ -65,6 +65,7 @@ The goal of this project is to reflect Diginova’s brand identity and attract p
 
 ---
 https://www.figma.com/design/T8k0fYbK6Ur3Ih4awM80KE/Untitled?node-id=0-1&t=0drWEYQW9DY2qW04-1
+ 
  📸 Screenshots
 
 > *(Add screenshots here if available, for homepage, services section, and chatbot)*
@@ -87,7 +88,7 @@ https://www.figma.com/design/T8k0fYbK6Ur3Ih4awM80KE/Untitled?node-id=0-1&t=0drWE
 For collaboration, feedback, or inquiries:
 
 📧 Email: leyutsegaleyu@gmail.com 
-website: https://www.figma.com/design/T8k0fYbK6Ur3Ih4awM80KE/Untitled?node-id=0-1&t=0drWEYQW9DY2qW04-1
+website:https://www.figma.com/design/T8k0fYbK6Ur3Ih4awM80KE/Untitled?node-id=0-1&t=0drWEYQW9DY2qW04-1
 
 
 
