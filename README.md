@@ -20,10 +20,7 @@ The goal of this project is to reflect Diginova’s brand identity and attract p
 
 ---
 
-## 🌍 Live Project URL
 
-👉 **[Visit Website](https://bootcamp2-one.vercel.app/)**  
-🔗 Public Live URL: `https://bootcamp2-one.vercel.app/`
 
 ---
 
@@ -65,14 +62,7 @@ The goal of this project is to reflect Diginova’s brand identity and attract p
 
 ---
 
-## 🌍 Live Project URL
-
-👉 **[Visit Website](https://bootcamp2-one.vercel.app/)**  
-🔗 Public Live URL: `https://bootcamp2-one.vercel.app/`
-
----
-
-## 📸 Screenshots
+ 📸 Screenshots
 
 > *(Add screenshots here if available, for homepage, services section, and chatbot)*
 
@@ -93,10 +83,10 @@ The goal of this project is to reflect Diginova’s brand identity and attract p
 
 For collaboration, feedback, or inquiries:
 
-📧 Email: diborashibeshi@gmail.com 
-🌐 Website: (https://bootcamp2-one.vercel.app/)
+📧 Email: leyutsegaleyu@gmail.com 
 
----
+
+
 
 
 
